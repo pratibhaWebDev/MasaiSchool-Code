@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .header-nav-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        line-height: 3;
+        padding-top: 10px;
+        background: linear-gradient(to bottom, #061D95, #35D6ED);
+        height: 120px;
+        font-family: serif;
+        /* width: 300px; */
+    }
+
+    header .heading {
+        font-size: 24px;
+        align-items: center;
+        text-align: center;
+        color: white;
+    }
+
+    nav {
+        display: flex;
+        justify-content: space-around;
+
+    }
+
+    nav a {
+        margin: 0 10px;
+        text-decoration: none;
+        color: white;
+    }
+
+    .container {
+        display: flex;
+        justify-content: center;
+
+    }
+
+    .portfolio {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .sub-container {
+        margin-top: 30px;
+    }
+
+    .sub-handing {
+        margin-top: 20px;
+        line-height: 2;
+        font-size: 20px;
+        font-family: serif;
+    }
+
+    table,
+    td,
+    th {
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th{
+        text-align: center;
+        padding: 8px; 
+    }
+    td {
+        text-align: center;
+        padding: 5px;
+    }
+
+    th {
+        background-color: #061D95;
+        color: white;
+    }
+</style>
+
+<body>
+
+    <div class="header-nav-wrapper">
+        <header>
+            <h1 class="heading">My Portfolio</h1>
+            <nav>
+                <a href="#">Home</a>
+                <a href="#">About</a>
+                <a href="#">Projects</a>
+                <a href="#">Contact</a>
+            </nav>
+        </header>
+    </div>
+    <div class="container">
+        <div class="sub-container">
+            <!-- welcome to my portfolio  -->
+            <div>
+                <h1 class="sub-handing">Welcome to My Portfolio</h1>
+                <p>This portfolio showcases my projects and provides information about my background and contact
+                    details.</p>
+            </div>
+            <!-- about -->
+            <div>
+                <h1 class="sub-handing">About</h1>
+                <p>Hello, I'm a web developer passionate building dynamic and responsive websites. I enjoy creating
+                    user-friendly interfaces and working on challenging projects.</p>
+            </div>
+            <!-- Projects -->
+            <div>
+                <h1 class="sub-handing">Projects</h1>
+                <table>
+                    <tr>
+                        <th>Project Name</th>
+                        <th>Description</th>
+                        <th>Year</th>
+                    </tr>
+                    <tr>
+                        <td>Project Alpha</td>
+                        <td>A web-based tool for tracking project progress and managing tasks.</td>
+                        <td>2023</td>
+                    </tr>
+                    <tr>
+                        <td>Project Site</td>
+                        <td>A personal website showcasing my work and skills as a web developer.</td>
+                        <td>2024</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h1 class="sub-handing">Contact</h1>
+            <!-- contact -->
+            <form action="/submit">
+                <div>
+                    <label for="username">Enter Username:</label>
+                    <br>
+                    <input type="text" id="username" name="username">
+                </div>
+
+                <div>
+                    <label for="password">Password:</label>
+                    <br>
+                    <input type="password" id="password" name="password">
+                </div>
+
+                <div>
+                    <label for="message">Message:</label><br>
+                    <textarea id="message" name="message" rows="3" cols="50"></textarea>
+                </div>
+
+                <div>
+                    <button type="submit">Submit Form</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
