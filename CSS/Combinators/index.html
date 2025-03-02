@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Navigation Bar Example</title>
+<style>
+  nav {
+    background-color: #f0f0f0;
+    padding: 10px;
+  }
+
+  nav section {
+    display: inline-block;
+    margin-right: 20px;
+  }
+
+  nav section a {
+    display: block;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: #333;
+  }
+
+  nav section:nth-child(1) > a {
+    color: darkblue; 
+  }
+
+  nav section:nth-child(2) > a {
+    color: darkgreen; 
+  }
+
+  nav section:nth-child(3) > a {
+    color: darkred; 
+  }
+
+  nav section:nth-child(1) a {
+    color: blue; 
+  }
+
+  nav section:nth-child(2) a {
+    color: green;
+  }
+
+  nav section:nth-child(3) a {
+    color: red; 
+  }
+
+  nav a:hover {
+    background-color: lightgray;
+    color: black;
+  }
+
+  nav a:active {
+    background-color: gray;
+    color: white;
+  }
+
+  nav a[href^="https"] {
+    color: purple !important; /* Override all other link styles */
+  }
+</style>
+</head>
+<body>
+
+  <nav>
+    <section>
+      <h3>Section 1</h3>
+      <a href="#">Link 1</a>
+      <a href="https://www.example.com">External Link</a>
+      <a href="#">
+        <span>Nested Link</span>
+      </a>
+    </section>
+
+    <section>
+      <h3>Section 2</h3>
+      <a href="#">Link 2</a>
+      <a href="#">
+        <span>Nested Link</span>
+      </a>
+      <a href="https://www.google.com">External Link</a>
+    </section>
+
+    <section>
+      <h3>Section 3</h3>
+      <a href="#">Link 3</a>
+      <a href="https://www.github.com">External Link</a>
+      <a href="#">
+        <span>Nested Link</span>
+      </a>
+    </section>
+  </nav>
+
+</body>
+</html>
