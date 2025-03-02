@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+
+</style>
+<body>
+    <div class="main">
+    <header>
+        <h1 class="heading">Welcome to My Portfolio</h1>
+        <nav>
+            <!-- <a href="#">Home</a> -->
+            <a href="#">About</a>
+            <a href="#">Projects</a>
+            <a href="#">Contact</a>
+        </nav>
+    </header>
+
+    <!-- about me section  -->
+
+    <div>
+        <h2 class="sub-heading">About Me</h2>
+        <p>Hello! I'm a web developer with a passion for creating functional and beatiful web application.</p>
+        <img src="img.JPG" alt="my profile">
+        <h2 class="sub-heading">Projects</h2>
+        <div class="box">
+            <h3>Project One: Personal Blog</h3>
+            <img src="img1.png" alt="my profile">
+            <p>A personal blog where I write about web development, programming, and techmology.</p>
+            <a href="#">View Project</a>
+            <ul>
+                <li> Technologies Used:
+                    <ul>
+                        <li>HTML</li>
+                        <li>CSS</li>
+                        <li>JavaScript</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="box">
+            <h3>Project Two: E-commerce site</h3>
+            <!-- <img src="img1.png" alt="my profile"> -->
+            <p>A personal blog where I write about web development, programming, and techmology.</p>
+            <a href="#">View Project</a>
+            <ul>
+                <li> Technologies Used:
+                    <ul>
+                        <li>HTML</li>
+                        <li>CSS</li>
+                        <li>JavaScript</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <form action="/submit">
+        <label for="username">Enter Username:</label> <br>
+        <input type="text" id="username" name="username"> <br>
+        <label for="password">Password:</label>  <br>
+        <input type="password" id="passcode" name="password"> <br>
+
+        <label for="message">Message:</label><br>
+        <textarea id="message" name="message" rows="4" cols="50"></textarea>
+      <br>
+        <button type="submit">Submit Form</button>
+      </form>
+    </div>
+</body>
+</html>
