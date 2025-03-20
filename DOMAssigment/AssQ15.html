@@ -1,0 +1,67 @@
+<!-- An <input> field where users can type a task.
+A <button> labeled "Add Task".
+A <ul> where tasks will be listed.
+For each task:
+Include a "Delete" button that removes the task when clicked.
+Include a "Complete" button that marks the task as completed (e.g., crosses out the text).
+Write JavaScript to:
+
+Dynamically add tasks to the <ul> when the "Add Task" button is clicked.
+Handle the "Delete" and "Complete" actions using event listeners.
+Ensure the application is robust and handles edge cases (e.g., empty input field should not add a task). -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" placeholder="Enter Your Task" id="input">
+    <button id="add-task-btn">Add Task</button>
+    <ul id="task-list"></ul>
+</body>
+
+</html>
+<script>
+    let input = document.getElementById("input")
+    let addTask = document.getElementById("add-task-btn")
+    let ul = document.getElementById("task-list")
+    let tasks = []
+
+
+    addTask.addEventListener('click', addTask1)
+
+   
+    let completeBtn = document.createElement('button')
+    function addTask1() {
+        let deleteBtn = document.createElement('button')
+
+        let text = input.value.trim()
+        console.log(text)
+        input.value = "";
+        if (text == "") {
+            alert("Please enter a task")
+            return;
+        }
+        else{
+        let li = document.createElement('li')
+        li.textContent = text
+
+        deleteBtn.textContent = "Delete"
+        deleteBtn.style.marginLeft = "5px";
+        deleteBtn.style.marginRight = "5px";
+        deleteBtn.style.cursor = "pointer";
+        deleteBtn.addEventListener('click',()=>{
+            ul.removeChild(li)
+        })
+        li.append(deleteBtn)
+        ul.appendChild(li)
+    }
+       
+    }
+
+</script>

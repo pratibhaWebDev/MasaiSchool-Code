@@ -1,0 +1,67 @@
+<!-- An <input> field where users can enter a color name. 
+An <input> field where users can type text content.
+A <button> labeled "Change Background" for changing the background color of a <div>.
+A <button> labeled "Update Text" for updating the content of the <div>.
+A <div> with some initial text content, which can be updated based on user input (point 2).
+Tasks:
+When the "Change Background" button is clicked:
+Retrieve the color name entered in the first input field.
+Change the background color of the <div> to the entered color.
+If the entered value is invalid (not a recognized color), alert the user with "Invalid color name!".
+When the "Update Text" button is clicked:
+Retrieve the text entered in the second input field.
+Update the text content of the <div> with the entered text.
+If the input field is empty, do not update the text and display an alert saying "Please enter some text!"-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .container{
+        width: 300px;
+            height: 200px;
+            background-color: antiquewhite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid black;
+            text-align: center;
+    }
+</style>
+<body>
+    <input type="text" id="colorChange" placeholder="enter a color name">
+    <button class="changeBackground">Change Background</button>
+    <input type="text" id="textInput" placeholder="Enter text content">
+    <button class="updteText">Update Text</button>
+    <div class="container">initial text content</div>
+</body>
+</html>
+<script>
+    let button=document.querySelector('.changeBackground')
+    // let div=document.querySelector(".container")
+    button.addEventListener('click',()=> {
+        let color=document.getElementById("colorChange").value.trim()
+        if(color){
+            div.style.backgroundColor=color
+            
+        }else{
+            alert("Invalid color name!")
+        }
+    })
+
+       let update=document.querySelector('.updteText')
+       update.addEventListener('click',()=>{
+        let text=document.getElementById("textInput").value.trim()
+        console.log(text)
+        let div=document.querySelector(".container")
+        if(text===""){
+            alert("Please enter some text!")
+        }else{
+            div.textContent=text
+        }
+       })
+   
+</script>
