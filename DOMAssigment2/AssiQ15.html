@@ -1,0 +1,117 @@
+<!-- Adding Tasks:
+A text input and a button to add tasks. 
+Each task should have a checkbox to mark it as completed and a delete button to remove it.
+Filtering Tasks:
+Three buttons to filter and display tasks:
+All Tasks
+Completed Tasks
+Incomplete Tasks
+Event Delegation:
+Use event delegation to handle the delete and toggle completion actions efficiently.
+Dynamic Counter:
+Display a count of:
+Total tasks
+Completed tasks
+Incomplete tasks
+Sorting Tasks:
+Add a button to sort tasks alphabetically.
+Additional Notes:
+Use map(), filter(), or similar HOFs to implement the filtering and sorting logic.
+Ensure the UI dynamically updates based on user actions. -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .complete {
+        text-decoration: line-through;
+        color: gray;
+    }
+</style>
+
+<body>
+    <div>
+        <div>
+            <button class="filter-btn" data-filter="all">All Tasks</button>
+            <button class="filter-btn" data-filter="completed">Completed Tasks</button>
+            <button class="filter-btn" data-filter="incomplete">Incomplete Tasks</button>
+        </div>
+        
+       
+        <div>
+            <input id="task-input" type="text" placeholder="Enter a task">
+            <button class="addTask">Add Task</button>
+            <ul class="task-add"></ul>
+        </div>
+        <div>
+            <p>Total Tasks: <span id="total-count">0</span></p>
+            <p>Completed Tasks: <span id="completed-count">0</span></p>
+            <p>Incomplete Tasks: <span id="incomplete-count">0</span></p>
+        </div>
+    </div>
+</body>
+
+</html>
+<script>
+    let input = document.getElementById('task-input');
+    let addTask = document.querySelector('.addTask');
+    let ul = document.querySelector('.task-add');
+    let filterBtns = document.querySelectorAll('.filter-btn');
+
+
+    function updateCounters(){
+        let totalTask=document.querySelectorAll(".task-list li").length;
+        let completeTasks=document.querySelectorAll(".task-list .complete")
+        let incomplete=totalTask-completeTasks;
+        document.getElementById("total-count").textContent=totalTask
+
+    }
+
+    function add() {
+
+        let task = input.value.trim();
+        if (task === "") {
+            alert("Write something")
+        } else {
+            let li = document.createElement('li');
+
+            //checkbox
+            let checkbox = document.createElement("input")
+            checkbox.type = "checkbox"
+            checkbox.style.marginRight = "10px";
+
+            checkbox.addEventListener('change', () => {
+                li.classList.toggle("complete")
+                updateCounters()
+            })
+
+            //delete 
+            let deleteBtn = document.createElement("button")
+            deleteBtn.textContent = "Delete"
+            deleteBtn.style.marginLeft = "5px"
+            deleteBtn.addEventListener('click', (event) => {
+                let li =event.target.parentElement;
+                ul.removeChild(li)
+            })
+            li.textContent = task
+            li.style.listStyle = "none"
+
+
+            //Append all the element here
+            li.appendChild(checkbox)
+            li.appendChild(deleteBtn)
+            ul.appendChild(li)
+        }
+        input.value = ""
+    }
+
+    
+
+    addTask.addEventListener('click', add)
+
+</script>

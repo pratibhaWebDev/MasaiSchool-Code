@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        background-color: #f0f0f0;
+        text-align: center;
+        /* margin: auto; */
+    }
+    button{
+        width: 200px;
+        color: aliceblue;
+        background-color: black;
+        border: none;
+        border-radius: 10px;
+        padding: 10px;
+    }
+    button:hover{
+        background-color: #912121;
+    }
+    .container{
+        width: 100px;
+        background-color: black;
+        /* padding: 20px; */
+        margin: 50px auto;
+        color: white;
+    }
+</style>
+<body>
+    <button class="addPara">Add Paragraph</button>
+    <button id="remove-btn">Remove Last Paragraph</button>
+    <div class="container"></div>
+</body>
+</html>
+<script>
+    let addBtn=document.querySelector('.addPara')
+    let removeBtn=document.getElementById("remove-btn")
+    let container=document.querySelector('.container')
+
+    addBtn.addEventListener('click',()=>{
+        let para=document.createElement('p')
+        para.textContent='This is a new paragraph'
+        container.appendChild(para)
+    })
+    removeBtn.addEventListener('click',()=>{
+        if(container.lastChild){
+        container.removeChild(container.lastChild)
+        }else{
+            alert('No more paragraphs to remove')
+        }
+        
+    })
+</script>

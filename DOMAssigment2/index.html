@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <style>
+        .complete {
+            text-decoration: line-through;
+            color: gray;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>To-Do List</h2>
+
+    <!-- Task Input Section -->
+    <input id="task-input" type="text" placeholder="Enter a task">
+    <button class="addTask">Add Task</button>
+
+    <!-- Filter Buttons -->
+    <div>
+        <button class="filter-btn" data-filter="all">All Tasks</button>
+        <button class="filter-btn" data-filter="completed">Completed Tasks</button>
+        <button class="filter-btn" data-filter="incomplete">Incomplete Tasks</button>
+        <button class="sort-btn">Sort Tasks A-Z</button>
+    </div>
+
+    <!-- Task Counter -->
+    <div>
+        <p>Total Tasks: <span id="total-count">0</span></p>
+        <p>Completed Tasks: <span id="completed-count">0</span></p>
+        <p>Incomplete Tasks: <span id="incomplete-count">0</span></p>
+    </div>
+
+    <!-- Task List -->
+    <ul class="task-list"></ul>
+
+    <script>
+        let input = document.getElementById("task-input");
+        let addTaskButton = document.querySelector(".addTask");
+        let taskList = document.querySelector(".task-list");
+        let filterButtons = document.querySelectorAll(".filter-btn");
+        let sortButton = document.querySelector(".sort-btn");
+
+        function updateCounters() {
+            let totalTasks = document.querySelectorAll(".task-list li").length;
+            let completedTasks = document.querySelectorAll(".task-list .complete").length;
+            let incompleteTasks = totalTasks - completedTasks;
+
+            document.getElementById("total-count").textContent = totalTasks;
+            document.getElementById("completed-count").textContent = completedTasks;
+            document.getElementById("incomplete-count").textContent = incompleteTasks;
+        }
+
+        function addTask() {
+            let taskText = input.value.trim();
+            if (taskText === "") {
+                alert("Please enter a task!");
+                return;
+            }
+
+            let li = document.createElement("li");
+            li.style.listStyle = "none";
+
+            let checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.style.marginRight = "10px";
+            checkbox.addEventListener("change", () => {
+                li.classList.toggle("complete"); 
+                updateCounters();
+            });
+
+            let deleteBtn = document.createElement("button");
+            deleteBtn.textContent = "Delete";
+            deleteBtn.style.marginLeft = "5px";
+            deleteBtn.style.cursor = "pointer";
+
+            li.appendChild(checkbox);
+            li.appendChild(document.createTextNode(taskText));
+            li.appendChild(deleteBtn);
+            taskList.appendChild(li);
+
+            input.value = "";
+            updateCounters();
+        }
+
+        // Event Delegation for Delete Button
+        taskList.addEventListener("click", (event) => {
+            if (event.target.tagName === "BUTTON") {
+                let li = event.target.parentElement;
+                taskList.removeChild(li);
+                updateCounters();
+            }
+        });
+
+        addTaskButton.addEventListener("click", addTask);
+        input.addEventListener("keydown", (event) => {
+            if (event.key === "Enter") addTask();
+        });
+
+        function filterTasks(filterType) {
+            let tasks = document.querySelectorAll(".task-list li");
+
+            tasks.forEach(task => {
+                let isCompleted = task.classList.contains("complete");
+
+                if (filterType === "all") {
+                    task.style.display = "flex"; 
+                } else if (filterType === "completed") {
+                    task.style.display = isCompleted ? "flex" : "none";
+                } else if (filterType === "incomplete") {
+                    task.style.display = isCompleted ? "none" : "flex";
+                }
+            });
+        }
+
+        filterButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                let filterType = button.getAttribute("data-filter");
+                filterTasks(filterType);
+            });
+        });
+
+        function sortTasks() {
+            let tasks = [...document.querySelectorAll(".task-list li")];
+
+            let sortedTasks = tasks.sort((a, b) => {
+                return a.textContent.localeCompare(b.textContent);
+            });
+
+            taskList.innerHTML = ""; // Clear the existing list
+            sortedTasks.forEach(task => taskList.appendChild(task)); // Re-add sorted tasks
+        }
+
+        sortButton.addEventListener("click", sortTasks);
+    </script>
+</body>
+
+</html>
