@@ -1,0 +1,179 @@
+<!-- Create an enhanced Todo List application
+with the following features:
+Add tasks to a list.
+Mark tasks as completed (indicated visually).
+Remove tasks from the list.
+Search for tasks in real time using a search bar.
+Store tasks as a JSON array in localStorage, 
+with each task object containing:
+A unique ID.
+Task text.
+Completion status. -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+     body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            max-width: 400px;
+            margin: auto;
+        }
+        .task-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+        .completed {
+            text-decoration: line-through;
+            color: gray;
+        }
+        button {
+            margin-left: 10px;
+            padding: 5px;
+            cursor: pointer;
+            border: none;
+            background-color: red;
+            color: white;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: darkred;
+        }
+        input[type="text"], input[type="search"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+</style>
+<body onload="displayTask()">
+    <input type="text" id="input">
+    <input type="search" id="searchBar" placeholder="Search Task">
+    <button id="addTask">Add Task</button>
+
+    <ul id="listTask"></ul>
+</body>
+
+</html>
+<script>
+    let addBtn = document.getElementById("addTask")
+    let search = document.getElementById("searchBar")
+    function generateUniqueID() {
+        return typeof crypto !== "undefined" && crypto.randomUUID
+            ? crypto.randomUUID()
+            : Date.now().toString();
+    }
+    function add() {
+        let text = document.getElementById("input")
+
+        let taskStore = getTask()
+        let input = text.value.trim()
+        if (input !== "") {
+
+
+            let newTask = {
+                id: generateUniqueID(),
+                text: input,
+                completed: false
+            };
+
+
+
+            taskStore.push(input)
+            console.log(taskStore)
+            setTask(taskStore)
+            displayTask()
+        } else {
+            alert("enter something")
+        }
+        text.value = ""
+
+    }
+    function displayTask() {
+        let item = getTask()
+        let ul = document.getElementById("listTask")
+        ul.innerHTML = ""
+        .filter(task => task.text.toLowerCase().includes(searchQuery.toLowerCase()))
+        item.forEach((task, index) => {
+            let li = document.createElement("li")
+            li.classList.add("task-item");
+            li.textContent = task
+
+            let taskText = document.createElement("span");
+            taskText.textContent = task.text;
+            if (task.completed) {
+                taskText.classList.add("completed");
+            }
+
+            let checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.checked = task.completed;
+            checkbox.onchange = () => toggleTask(task.id);
+
+
+            let deleteBtn = document.createElement("button")
+            deleteBtn.textContent = "❌";
+            deleteBtn.onclick = () => deleteTask(task.id);
+
+            li.appendChild(checkbox);
+            li.appendChild(taskText);
+            li.appendChild(deleteBtn)
+            ul.appendChild(li)
+
+        })
+
+    }
+    function toggleTask(id) {
+        let tasks = getTask();
+        tasks.forEach(task => {
+            if (task.id === id) {
+                task.completed = !task.completed;
+            }
+        });
+
+        setTask(tasks);
+        displayTask();
+    }
+    function searchTask() {
+
+        let data = search.value.toLowerCase()
+        let taskItem = document.querySelectorAll(".task-item")
+        taskItem.forEach((ele, index) => {
+            if (ele.textContent.toLowerCase().includes(data)) {
+                ele.style.display = "list-item"
+            } else {
+                ele.style.display = "none"
+            }
+        })
+
+    }
+
+    function deleted(id) {
+        let text = getTask()
+        let updatedTasks = tasks.filter(task => task.id !== id);
+        setTask(updatedTasks);
+        displayTask();
+    }
+
+    function getTask() {
+        return JSON.parse(localStorage.getItem("Task")) || []
+
+    }
+
+    function setTask(task) {
+        localStorage.setItem("Task", JSON.stringify(task))
+    }
+    addBtn.addEventListener('click', add)
+    document.getElementById("searchBar").addEventListener("input", () => {
+        displayTasks(document.getElementById("searchBar").value);
+    });
+</script>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+            transition: background-color 1s ease-in-out, color 1s ease-in-out;
+        }
+</style>
+<body>
+    <select name="" id="categoryFilter" onclick="color()"></select>
+</body>
+</html>
+<script>
+    let categorySelect=document.getElementById('categoryFilter')
+    let category=["Light","Dark","Blue"]
+    category.forEach(element =>{
+        let option=document.createElement('option')
+        option.value=element.toLocaleLowerCase()
+        option.textContent=element
+        categorySelect.appendChild(option)
+    })
+    function color(){
+        let select=categorySelect.value
+        console.log(select)
+        if(select==="light"){
+            document.body.style.backgroundColor="white"
+        }else if(select==="dark"){
+            document.body.style.backgroundColor="black"
+        }else if(select==="blue"){
+            document.body.style.backgroundColor="blue"
+
+        }
+    }
+
+</script>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+     textarea {
+            width: 80%;
+            height: 200px;
+            margin-bottom: 10px;
+            padding: 10px;
+            font-size: 16px;
+            white-space: pre-wrap; /* Ensures line breaks are preserved */
+        }
+        button {
+            margin: 5px;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+</style>
+<body>
+    <!-- <input type="text" placeholder="Enter Value "> -->
+    <textarea placeholder="Enter something Here" id="text"></textarea>
+    <button class="SaveNotes">Save Notes</button>
+    <button class="ClearNotes">Clear Notes</button>
+    <button class="LoadNotes">Load Notes</button>
+</body>
+
+</html>
+<script>
+    let saveBtn = document.querySelector('.SaveNotes')
+    let clearBtn = document.querySelector('.ClearNotes')
+    let loadBtn = document.querySelector('.LoadNotes')
+    function saveNotes() {
+        let text = document.getElementById("text")
+        let value = text.value.trim()
+        let valueData = JSON.parse(localStorage.getItem('valueData')) || []
+        if (value !== "") {
+            valueData.push(value)
+            localStorage.setItem('valueData', JSON.stringify(valueData))
+            console.log(valueData)
+        } else {
+            alert("enter something in textarea")
+        }
+        text.value = ""
+    }
+    function clearNotes() {
+        localStorage.removeItem("valueData")
+        document.getElementById("text").value = ""
+    }
+    function loadNotes() {
+        let text = localStorage.getItem("valueData")
+        console.log(text)
+     
+            if (text) {
+                console.log(text)
+                document.getElementById("text").value = text
+            }
+
+    }
+    saveBtn.addEventListener('click', saveNotes)
+    loadBtn.addEventListener('click', loadNotes)
+    clearBtn.addEventListener('click', clearNotes)
+</script>
