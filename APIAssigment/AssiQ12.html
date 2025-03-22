@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            text-align: center;
+        }
+        form {
+            max-width: 400px;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        input, textarea, button {
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+        }
+        button {
+            background-color: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: darkblue;
+        }
+        .error-message {
+            color: red;
+            font-size: 14px;
+        }
+        #responseContainer {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h2>Submit a Post</h2>
+    <form id="postForm">
+        <input type="text" id="title" placeholder="Enter Title">
+        <textarea id="body" placeholder="Enter Body"></textarea>
+        <button type="submit">Submit Post</button>
+        <p id="errorMessage" class="error-message"></p>
+    </form>
+
+    <div id="responseContainer"></div>
+
+    <script>
+        document.getElementById("postForm").addEventListener("submit", async function(event) {
+            event.preventDefault();
+
+            let title = document.getElementById("title").value.trim();
+            let body = document.getElementById("body").value.trim();
+            let errorMessage = document.getElementById("errorMessage");
+            let responseContainer = document.getElementById("responseContainer");
+
+        
+            if (title === "" || body === "") {
+                errorMessage.textContent = "Both fields are required!";
+                return;
+            }
+
+            errorMessage.textContent = ""; 
+
+            try {
+                let response = await fetch('https://jsonplaceholder.typicode.com/posts', {
+                    method: 'POST',
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ title, body, userId: 1 }) // Sending a test userId
+                });
+
+                if (!response.ok) {
+                    throw new Error("Failed to create post.");
+                }
+
+                let result = await response.json();
+                console.log("Server Response:", result);
+
+       
+                responseContainer.innerHTML = `
+                    <h3>Post Created Successfully!</h3>
+                    <p><b>Post ID:</b> ${result.id}</p>
+                    <p><b>Title:</b> ${result.title}</p>
+                    <p><b>Body:</b> ${result.body}</p>
+                `;
+                responseContainer.style.display = "block";
+
+     
+                document.getElementById("title").value = "";
+                document.getElementById("body").value = "";
+            } catch (error) {
+                errorMessage.textContent = "Error submitting post. Please try again.";
+                console.error("Error:", error);
+            }
+        });
+    </script>
+</body>
+</html>

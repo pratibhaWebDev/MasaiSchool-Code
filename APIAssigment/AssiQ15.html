@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #productContainer{
+        display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            width: 80%;
+            margin: auto;
+    }
+</style>
+<body>
+    <select name="" id="categoryFilter" onchange="filterByCategory()">
+        <option value="all">All</option>
+        <option value="men's clothing">men's clothing</option>
+        <option value="jewelery">jewelery</option>
+        <option value="women's clothing">women's clothing</option>
+    </select>
+
+    <div id="productContainer"></div>
+</body>
+</html>
+<script>
+    async function filterByCategory(){
+        let response = await fetch('https://fakestoreapi.com/products')
+        let products=await response.json();
+        console.log(products)
+        let selectedCategory=document.getElementById('categoryFilter').value;
+        // let option = document.createElement('option')
+    
+        let filteredProducts=
+        selectedCategory==="all"
+        ?products
+        :products.filter((product)=>product.category==selectedCategory)
+        console.log(filteredProducts)
+
+        let container=document.getElementById("productContainer");
+        container.innerHTML="";
+
+        filteredProducts.forEach((product)=>{
+            let productCard=document.createElement("div");
+
+            productCard.innerHTML=`
+             <h3>${product.title}</h3>
+                  <img src="${product.image}" alt="">
+                  <p><b>Price:</b> $${product.price}</p>
+                 <p><b>Rating:</b> ${product.rating.rate} ⭐ (${product.rating.count} reviews)</p>
+            `
+            container.appendChild(productCard)
+        })
+        changeCategory(selectedCategory)
+        
+    }
+
+</script>
