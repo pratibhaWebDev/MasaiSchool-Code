@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    const deleteUser = async (key) => {
+        try {
+            let response = await fetch(`https://userdata-2bf81-default-rtdb.asia-southeast1.firebasedatabase.app/users/${key}.json`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`Failed to delete user. Status: ${response.status}`);
+            }
+
+            console.log(`User ${key} deleted successfully`);
+            alert(`User ${key} deleted successfully!`);
+        } catch (error) {
+            console.error("Error deleting user:", error);
+            alert("Failed to delete user. Check console for details.");
+        }
+    };
+
+    // Example Usage
+    deleteUser("user1");
+
+
+</script>

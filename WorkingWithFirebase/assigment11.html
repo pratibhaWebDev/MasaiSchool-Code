@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .display{
+        display: flex;
+        justify-content: center;
+        text-align: center;
+    }
+</style>
+<body>
+    <div class="display"></div>
+</body>
+
+</html>
+<script>
+    let apiUrl = "https://userdata-2bf81-default-rtdb.asia-southeast1.firebasedatabase.app/users.json"
+
+    async function fetchUser() {
+        try {
+            const response = await fetch(apiUrl)
+
+            // const data= await response.json()
+            // console.log(data)
+
+            if (!response.ok) {
+                throw new Error(response.statusText)
+            }
+            const data = await response.json()
+            let arrayData= Object.entries(data).map(([id,user])=>({id,...user}))
+            let usersTable = `
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${arrayData.map(user => `
+                            <tr>
+                                <td>${user.name || "N/A"}</td>
+                                <td>${user.email || "N/A"}</td>
+                            </tr>
+                        `).join("")}
+                    </tbody>
+                </table>
+                `;
+            document.querySelector('.display').innerHTML = usersTable
+        } catch (error) {
+            console.log("Error fetching users",error)
+            document.querySelector('display').innerHTML= `<p>Faild to loud user data.</p>`
+        }
+    }
+    fetchUser()
+</script>

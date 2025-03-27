@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Form</h1>
+    <label>Name:</label><br>
+    <input type="text" id="name" placeholder="Enter your name">
+    <br>
+    <label for="email">Email</label> <br>
+    <input type="email" id="email" placeholder="Enter your email">
+    <br>
+    <button id="submit">Submit</button>
+</body>
+</html>
+<script>
+    let apiUrl= 'https://userdata-2bf81-default-rtdb.asia-southeast1.firebasedatabase.app/users.json'
+     let submit=document.getElementById("submit")
+     submit.addEventListener("click",async function(){
+        let name=document.getElementById("name").value
+        let email=document.getElementById("email").value
+
+        // let response= await fetch(apiUrl)
+        // let data=await response.json()
+
+        // let UserData=Object.entries(data).map(([id,user])=>({id,...user}))
+        // console.log(UserData)
+
+        if (!name || !email) {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+        let userData={
+            name:name,
+            email:email
+        }
+
+        try {
+            let response= await fetch(apiUrl,{
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify(userData)
+            })
+
+            if(response.ok){
+                console.log("Data added successfully")
+                document.getElementById("name").value=""
+                document.getElementById("email").value=""
+            }
+
+        } catch (error) {
+            console.log(error)
+        }
+
+     })
+</script>

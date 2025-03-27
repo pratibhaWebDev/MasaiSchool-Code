@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button onclick="patchData()">Update Name</button>
+</body>
+
+</html>
+<script>
+    let apiUrl = 'https://userdata-2bf81-default-rtdb.asia-southeast1.firebasedatabase.app/users/user1.json'
+    async function patchData() {
+        try {
+            let response = await fetch(apiUrl, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name: "pratibha" })
+            })
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`)
+            }
+            let data = await response.json()
+            console.log(data)
+            alert(`User name updated to!`);
+        } catch (error) {
+            console.log("error")
+        }
+
+    }
+</script>
