@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style></style>
+<body>
+    <select name="productCategory" id="category" onchange="products()">
+        <option value="all">Select Category</option>
+        <option value="Outdoors">Outdoors</option>
+        <option value="Garden">Garden</option>
+        <option value="Clothing">Clothing</option>
+    </select>
+    <div class="display"></div>
+</body>
+
+</html>
+<script>
+    async function products() {
+        const response = await fetch('https://67e406dc2ae442db76d2aeb4.mockapi.io/products')
+        let data = await response.json()
+        let selectedCategory = document.getElementById("category").value
+        console.log(selectedCategory)
+        let filteredProduct =
+            selectedCategory == "all"
+                ? data
+                : data.filter((ele) => ele.category == selectedCategory)
+        console.log(filteredProduct)
+
+        display(filteredProduct)
+    }
+    function display(value) {
+        let data = document.querySelector(".display")
+        data.innerHTML = ""
+        value.forEach((ele) => {
+            let div = document.createElement("div")
+            div.innerHTML = `
+            <h2>${ele.name}</h2>
+            <img src="${ele.image}" alt="">
+             <p><b>Price:</b>${ele.price}</p>
+            `
+            data.appendChild(div)
+        })
+    }
+</script>
