@@ -1,0 +1,41 @@
+<!-- 1.client - server model 
+2. creating our own API -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="product"></div>
+</body>
+</html>
+<script>
+    async function fetchMovie(){
+    let res = await fetch('https://moviedatabase-24092-default-rtdb.asia-southeast1.firebasedatabase.app/movies.json')
+    let movie = await res.json()
+    // let moviesArray=Object.entries(movie) //passing fetch data
+    // console.log(moviesArray)
+    // let finalData=moviesArray.map(([id,movie])=>({id,...movie}))
+    // console.log(finalData)
+    // console.log(movie)
+    // let movieArray=Object.entries(movie)
+    // console.log(movieArray)
+    // let finalArray=movieArray.map(([id,movie])=>({id,...movie}))
+    // console.log(finalArray)
+
+    // let movieArray=Object.entries(movie).map(([id,movie])=>({id,...movie}))
+    // console.log(movieArray)
+
+    let newArray=[]
+    for(let key in movie){
+        // console.log(key, movie[key])
+        newArray.push({id:key,...movie[key]})
+    }
+    console.log(newArray)
+    }
+    fetchMovie()
+</script>
+
